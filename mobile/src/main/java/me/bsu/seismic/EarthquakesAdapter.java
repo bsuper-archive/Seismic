@@ -10,12 +10,14 @@ import org.apache.commons.lang3.text.WordUtils;
 
 import java.util.List;
 
-import me.bsu.seismic.models.Earthquakes;
-import me.bsu.seismic.models.Feature;
+import me.bsu.seismic.models.usgs.Earthquakes;
+import me.bsu.seismic.models.usgs.Feature;
 
 public class EarthquakesAdapter extends RecyclerView.Adapter<EarthquakesAdapter.ViewHolder> {
 
     private List<Feature> mIncidents;
+
+
     public EarthquakesAdapter(Earthquakes earthquakes) {
         mIncidents = earthquakes.getFeatures();
     }
@@ -59,4 +61,7 @@ public class EarthquakesAdapter extends RecyclerView.Adapter<EarthquakesAdapter.
     public int getItemCount() {
         return mIncidents.size();
     }
+
+
+
 }

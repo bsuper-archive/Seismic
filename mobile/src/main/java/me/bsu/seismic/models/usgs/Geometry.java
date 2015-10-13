@@ -1,4 +1,4 @@
-package me.bsu.seismic.models;
+package me.bsu.seismic.models.usgs;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -21,8 +21,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.squareup.okhttp.ResponseBody;
 
 import me.bsu.seismic.api.USGSClient;
-import me.bsu.seismic.models.Earthquakes;
-import me.bsu.seismic.models.Feature;
+import me.bsu.seismic.models.usgs.Earthquakes;
+import me.bsu.seismic.models.usgs.Feature;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.Response;

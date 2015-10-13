@@ -1,8 +1,7 @@
 package me.bsu.seismic.api;
 
-import java.util.List;
-
-import me.bsu.seismic.models.Earthquakes;
+import me.bsu.seismic.models.usgs.Earthquakes;
+import me.bsu.seismic.models.usgs.Feature;
 import retrofit.Call;
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
@@ -27,5 +26,8 @@ public class USGSClient {
     public interface USGSApiInterface {
         @GET("/fdsnws/event/1/query")
         Call<Earthquakes> getRecentEarthquakes(@Query("limit") int limit, @Query("format") String format);
+
+        @GET("/fdsnws/event/1/query")
+        Call<Feature> getEarthquake(@Query("eventid") String eventid, @Query("format") String format);
     }
 }

@@ -37,7 +37,7 @@
 
         </activity>
         <activity
-            android:name=".EarthquakeProfile"
+            android:name=".EarthquakeProfileActivity"
             android:label="@string/title_activity_earthquake_profile" >
         </activity>
         <activity

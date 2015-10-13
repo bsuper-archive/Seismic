@@ -1,5 +1,5 @@
 
-package me.bsu.seismic.models;
+package me.bsu.seismic.models.usgs;
 
 import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;

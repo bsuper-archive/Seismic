@@ -16,6 +16,8 @@ public class Utils {
     public static final String TWITTER_KEY = "83YeNmqDghxUVFSYZjVCXCAbV";
     public static final String TWITTER_SECRET = "73mzbYXZ1BhjmcpGuUhsxSFu0WYzYSt429HWDHhLkebWqj3WbF";
 
+    public static final String INSTAGRAM_CLIENT_ID = "71171bb994f743ab90e92539f22f2530";
+
     public static String convertUnixTimestampToLocalTimestampString(long unixTS) {
         Date date = new Date(unixTS);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss z");
