@@ -10,4 +10,18 @@
     <color name="colorDivider">#B6B6B6</color>
     <color name="white">#FFFFFF</color>
 
+    <color name="minorColor">#4CAF50</color>
+    <color name="lightColor">#8BC34A</color>
+    <color name="moderateColor">#FFEB3B</color>
+    <color name="strongColor">#FF9800</color>
+    <color name="majorColor">#F44336</color>
+    <color name="greatColor">#D32F2F</color>
+
+
+
+
+
+
+
+
 </resources>

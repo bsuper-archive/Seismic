@@ -1,96 +1,102 @@
+
 package me.bsu.seismic.models.instagram;
 
-import java.util.HashMap;
-import java.util.Map;
 import javax.annotation.Generated;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 @Generated("org.jsonschema2pojo")
 public class Caption {
 
+    @SerializedName("created_time")
+    @Expose
     private String createdTime;
+    @SerializedName("text")
+    @Expose
     private String text;
-    private From from;
+    @SerializedName("from")
+    @Expose
+    private From_ from;
+    @SerializedName("id")
+    @Expose
     private String id;
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
-     *
+     * 
      * @return
-     * The createdTime
+     *     The createdTime
      */
     public String getCreatedTime() {
         return createdTime;
     }
 
     /**
-     *
+     * 
      * @param createdTime
-     * The created_time
+     *     The created_time
      */
     public void setCreatedTime(String createdTime) {
         this.createdTime = createdTime;
     }
 
     /**
-     *
+     * 
      * @return
-     * The text
+     *     The text
      */
     public String getText() {
         return text;
     }
 
     /**
-     *
+     * 
      * @param text
-     * The text
+     *     The text
      */
     public void setText(String text) {
         this.text = text;
     }
 
     /**
-     *
+     * 
      * @return
-     * The from
+     *     The from
      */
-    public From getFrom() {
+    public From_ getFrom() {
         return from;
     }
 
     /**
-     *
+     * 
      * @param from
-     * The from
+     *     The from
      */
-    public void setFrom(From from) {
+    public void setFrom(From_ from) {
         this.from = from;
     }
 
     /**
-     *
+     * 
      * @return
-     * The id
+     *     The id
      */
     public String getId() {
         return id;
     }
 
     /**
-     *
+     * 
      * @param id
-     * The id
+     *     The id
      */
     public void setId(String id) {
         this.id = id;
     }
 
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
     }
 
 }

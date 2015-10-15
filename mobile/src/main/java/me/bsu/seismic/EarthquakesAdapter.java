@@ -54,6 +54,7 @@ public class EarthquakesAdapter extends RecyclerView.Adapter<EarthquakesAdapter.
         holder.type.setText(WordUtils.capitalizeFully(e.getProperties().getType()));
         holder.location.setText(e.getProperties().getPlace());
         holder.magnitude.setText(String.valueOf(e.getProperties().getMag()));
+        holder.magnitude.setTextColor(Utils.getEarthquakeColor(e.getProperties().getMag()));
         holder.timeSince.setText(Utils.getTimeDifferenceFromCurrentTime(e.getProperties().getTime()));
     }
 

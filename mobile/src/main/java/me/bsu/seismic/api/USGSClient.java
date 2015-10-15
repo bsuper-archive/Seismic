@@ -25,9 +25,12 @@ public class USGSClient {
 
     public interface USGSApiInterface {
         @GET("/fdsnws/event/1/query")
-        Call<Earthquakes> getRecentEarthquakes(@Query("limit") int limit, @Query("format") String format);
+        Call<Earthquakes> getRecentEarthquakes(@Query("minmagnitude") double minMagnitude, @Query("limit") int limit, @Query("format") String format);
 
-        @GET("/fdsnws/event/1/query")
-        Call<Feature> getEarthquake(@Query("eventid") String eventid, @Query("format") String format);
+        @GET("/earthquakes/feed/v1.0/summary/all_hour.geojson")
+        Call<Earthquakes> getRecentEarthquakesFromFeed();
+//
+//        @GET("/fdsnws/event/1/query")
+//        Call<Feature> getEarthquake(@Query("eventid") String eventid, @Query("format") String format);
     }
 }

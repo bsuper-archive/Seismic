@@ -1,11 +1,15 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity"
+    tools:ignore="MergeRootFrame"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:weightSum="1"
-    android:orientation="horizontal">
+    android:orientation="horizontal"
+    android:weightSum="1">
 
     <FrameLayout
+        android:id="@+id/map_container"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight=".5"
@@ -20,14 +24,11 @@
             android:name="com.google.android.gms.maps.SupportMapFragment" />
     </FrameLayout>
 
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/listview_earthquakes"
-        android:scrollbars="vertical"
+    <FrameLayout
+        android:id="@+id/list_container"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="0.5"
-        android:background="@color/white"
-        android:divider="@color/colorDivider"
-        android:dividerHeight="4dp"/>
+        android:layout_weight="0.5"/>
+
 </LinearLayout>
+

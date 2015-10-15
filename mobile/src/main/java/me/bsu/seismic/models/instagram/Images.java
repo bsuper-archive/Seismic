@@ -1,77 +1,81 @@
+
 package me.bsu.seismic.models.instagram;
 
-import java.util.HashMap;
-import java.util.Map;
 import javax.annotation.Generated;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 @Generated("org.jsonschema2pojo")
 public class Images {
 
+    @SerializedName("low_resolution")
+    @Expose
     private LowResolution lowResolution;
+    @SerializedName("thumbnail")
+    @Expose
     private Thumbnail thumbnail;
+    @SerializedName("standard_resolution")
+    @Expose
     private StandardResolution standardResolution;
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
-     *
+     * 
      * @return
-     * The lowResolution
+     *     The lowResolution
      */
     public LowResolution getLowResolution() {
         return lowResolution;
     }
 
     /**
-     *
+     * 
      * @param lowResolution
-     * The low_resolution
+     *     The low_resolution
      */
     public void setLowResolution(LowResolution lowResolution) {
         this.lowResolution = lowResolution;
     }
 
     /**
-     *
+     * 
      * @return
-     * The thumbnail
+     *     The thumbnail
      */
     public Thumbnail getThumbnail() {
         return thumbnail;
     }
 
     /**
-     *
+     * 
      * @param thumbnail
-     * The thumbnail
+     *     The thumbnail
      */
     public void setThumbnail(Thumbnail thumbnail) {
         this.thumbnail = thumbnail;
     }
 
     /**
-     *
+     * 
      * @return
-     * The standardResolution
+     *     The standardResolution
      */
     public StandardResolution getStandardResolution() {
         return standardResolution;
     }
 
     /**
-     *
+     * 
      * @param standardResolution
-     * The standard_resolution
+     *     The standard_resolution
      */
     public void setStandardResolution(StandardResolution standardResolution) {
         this.standardResolution = standardResolution;
     }
 
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
     }
 
 }

@@ -9,7 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import me.bsu.seismic.dbmodels.Earthquake;
 import me.bsu.seismic.models.usgs.Earthquakes;
+import me.bsu.seismic.other.RecyclerItemClickListener;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -20,7 +22,7 @@ public class EarthquakesListFragment extends Fragment {
 
 
     RecyclerView mRecyclerView;
-    private EarthquakesAdapter mEarthquakesAdapter;
+    private RecyclerView.Adapter mEarthquakesAdapter;
     private Earthquakes mEarthquakes;
 
 
@@ -36,25 +38,29 @@ public class EarthquakesListFragment extends Fragment {
         // use a linear layout manager
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(layoutManager);
-        mRecyclerView.addItemDecoration(new SimpleDividerItemDecoration(
-                getActivity()
-        ));
-        mRecyclerView.addOnItemTouchListener(
-                new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(View view, int position) {
-                        Log.d(TAG, String.format("%d clicked", position));
-                        ((EarthquakesActivity) getActivity()).getEarthquakeProfile(position);
-                    }
-                })
-        );
+//        mRecyclerView.addItemDecoration(new SimpleDividerItemDecoration(
+//                getActivity()
+//        ));
+        mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), mRecyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Log.d(TAG, String.format("%d clicked", position));
+                ((EarthquakesActivity) getActivity()).getEarthquakeProfileUsingDB(position);
+            }
+
+            @Override
+            public void onItemLongClick(View view, int position) {
+                Log.d(TAG, String.format("%d long press", position));
+                ((EarthquakesActivity) getActivity()).moveMapToEarthquake(position);
+            }
+        }));
+        updateEarthquakes();
         return v;
     }
 
-    public void updateEarthquakes(Earthquakes earthquakes) {
+    public void updateEarthquakes() {
         Log.d(TAG, "update earthquakes called");
-        mEarthquakes = earthquakes;
-        mEarthquakesAdapter = new EarthquakesAdapter(mEarthquakes);
-        mRecyclerView.setAdapter(mEarthquakesAdapter);
+        mEarthquakesAdapter = new EarthquakesCursorRecyclerAdapter(Earthquake.fetchResultCursor(), getActivity());
+        mRecyclerView.swapAdapter(mEarthquakesAdapter, true);
     }
 }

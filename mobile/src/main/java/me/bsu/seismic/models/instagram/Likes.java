@@ -1,60 +1,62 @@
+
 package me.bsu.seismic.models.instagram;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import javax.annotation.Generated;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 @Generated("org.jsonschema2pojo")
 public class Likes {
 
+    @SerializedName("count")
+    @Expose
     private Long count;
-    private List<Datum_> data = new ArrayList<Datum_>();
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
+    @SerializedName("data")
+    @Expose
+    private List<Datum__> data = new ArrayList<Datum__>();
 
     /**
-     *
+     * 
      * @return
-     * The count
+     *     The count
      */
     public Long getCount() {
         return count;
     }
 
     /**
-     *
+     * 
      * @param count
-     * The count
+     *     The count
      */
     public void setCount(Long count) {
         this.count = count;
     }
 
     /**
-     *
+     * 
      * @return
-     * The data
+     *     The data
      */
-    public List<Datum_> getData() {
+    public List<Datum__> getData() {
         return data;
     }
 
     /**
-     *
+     * 
      * @param data
-     * The data
+     *     The data
      */
-    public void setData(List<Datum_> data) {
+    public void setData(List<Datum__> data) {
         this.data = data;
     }
 
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
     }
 
 }

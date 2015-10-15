@@ -1,96 +1,102 @@
+
 package me.bsu.seismic.models.instagram;
 
-import java.util.HashMap;
-import java.util.Map;
 import javax.annotation.Generated;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 @Generated("org.jsonschema2pojo")
 public class Datum_ {
 
-    private String username;
-    private String profilePicture;
+    @SerializedName("created_time")
+    @Expose
+    private String createdTime;
+    @SerializedName("text")
+    @Expose
+    private String text;
+    @SerializedName("from")
+    @Expose
+    private From from;
+    @SerializedName("id")
+    @Expose
     private String id;
-    private String fullName;
-    private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     /**
-     *
+     * 
      * @return
-     * The username
+     *     The createdTime
      */
-    public String getUsername() {
-        return username;
+    public String getCreatedTime() {
+        return createdTime;
     }
 
     /**
-     *
-     * @param username
-     * The username
+     * 
+     * @param createdTime
+     *     The created_time
      */
-    public void setUsername(String username) {
-        this.username = username;
+    public void setCreatedTime(String createdTime) {
+        this.createdTime = createdTime;
     }
 
     /**
-     *
+     * 
      * @return
-     * The profilePicture
+     *     The text
      */
-    public String getProfilePicture() {
-        return profilePicture;
+    public String getText() {
+        return text;
     }
 
     /**
-     *
-     * @param profilePicture
-     * The profile_picture
+     * 
+     * @param text
+     *     The text
      */
-    public void setProfilePicture(String profilePicture) {
-        this.profilePicture = profilePicture;
+    public void setText(String text) {
+        this.text = text;
     }
 
     /**
-     *
+     * 
      * @return
-     * The id
+     *     The from
+     */
+    public From getFrom() {
+        return from;
+    }
+
+    /**
+     * 
+     * @param from
+     *     The from
+     */
+    public void setFrom(From from) {
+        this.from = from;
+    }
+
+    /**
+     * 
+     * @return
+     *     The id
      */
     public String getId() {
         return id;
     }
 
     /**
-     *
+     * 
      * @param id
-     * The id
+     *     The id
      */
     public void setId(String id) {
         this.id = id;
     }
 
-    /**
-     *
-     * @return
-     * The fullName
-     */
-    public String getFullName() {
-        return fullName;
-    }
-
-    /**
-     *
-     * @param fullName
-     * The full_name
-     */
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public Map<String, Object> getAdditionalProperties() {
-        return this.additionalProperties;
-    }
-
-    public void setAdditionalProperty(String name, Object value) {
-        this.additionalProperties.put(name, value);
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
     }
 
 }

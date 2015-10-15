@@ -4,38 +4,30 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="104dp"
-    android:background="@color/white">
+    android:background="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
+    <FrameLayout
+        android:layout_width="48dp"
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         android:id="@+id/icon_text_relative_layout">
-
-        <ImageView
-            android:id="@+id/list_item_magnitude_icon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-
-            android:gravity="center"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:textSize="16sp"
-            android:textColor="@color/colorAccent"/>
 
         <TextView
             android:id="@+id/list_item_magnitude"
-            android:layout_width="40dp"
-            android:layout_height="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:gravity="center"
-            android:layout_below="@id/list_item_magnitude_icon"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:textSize="14sp"
-            android:textColor="@color/colorSecondaryText"
-            android:layout_alignParentBottom="true"
+            android:layout_gravity="center"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="@color/colorAccent"
             android:text="7.4"/>
-    </RelativeLayout>
+    </FrameLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -50,6 +42,7 @@
             android:textSize="16sp"
             android:textColor="@color/colorPrimaryText"
             android:text="Earthquake"
+            android:textStyle="bold"
             android:paddingTop="16dp"/>
 
         <TextView
