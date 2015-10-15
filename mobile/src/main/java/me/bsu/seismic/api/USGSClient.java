@@ -1,7 +1,6 @@
 package me.bsu.seismic.api;
 
 import me.bsu.seismic.models.usgs.Earthquakes;
-import me.bsu.seismic.models.usgs.Feature;
 import retrofit.Call;
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;

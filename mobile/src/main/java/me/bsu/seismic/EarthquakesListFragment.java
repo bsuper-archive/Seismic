@@ -38,9 +38,6 @@ public class EarthquakesListFragment extends Fragment {
         // use a linear layout manager
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(layoutManager);
-//        mRecyclerView.addItemDecoration(new SimpleDividerItemDecoration(
-//                getActivity()
-//        ));
         mRecyclerView.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), mRecyclerView, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {

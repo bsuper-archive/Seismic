@@ -1,9 +1,9 @@
 package me.bsu.seismic;
 
+import android.app.Fragment;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -19,7 +19,6 @@ import java.util.List;
 import me.bsu.seismic.api.InstagramClient;
 import me.bsu.seismic.models.instagram.Datum;
 import me.bsu.seismic.models.instagram.InstagramResponse;
-import me.bsu.seismic.other.SimpleDividerItemDecoration;
 import retrofit.Call;
 import retrofit.Callback;
 import retrofit.Response;
@@ -70,9 +69,6 @@ public class EarthquakeProfileImageFragment extends Fragment {
         mRecyclerView = (RecyclerView) v.findViewById(R.id.listview_earthquake_profile_images);
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
         mRecyclerView.setLayoutManager(layoutManager);
-//        mRecyclerView.addItemDecoration(new SimpleDividerItemDecoration(
-//                getActivity()
-//        ));
         return v;
     }
 

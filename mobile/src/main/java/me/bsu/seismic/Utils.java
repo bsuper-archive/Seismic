@@ -2,7 +2,6 @@ package me.bsu.seismic;
 
 import android.util.Log;
 
-import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
 
 import org.joda.time.Duration;

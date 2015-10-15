@@ -1,6 +1,5 @@
 package me.bsu.seismic;
 
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
@@ -9,7 +8,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.activeandroid.query.Delete;
 import com.activeandroid.query.Select;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
