@@ -42,26 +42,67 @@
             android:textSize="16sp"
             android:textColor="@color/colorPrimaryText"
             android:text="Earthquake"
-            android:textStyle="bold"
-            android:paddingTop="16dp"/>
+            android:paddingTop="16dp"
+            android:textStyle="bold"/>
+
+        <ImageView
+            android:id="@+id/place_image_view"
+            android:layout_width="16sp"
+            android:layout_height="16sp"
+            android:src="@drawable/ic_maps_place_gray"
+            android:color="@color/colorAccent"
+            android:layout_below="@id/list_item_type"/>
 
         <TextView
             android:id="@+id/list_item_location"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/place_image_view"
+            android:layout_marginLeft="8dp"
             android:layout_below="@id/list_item_type"
             android:textSize="14sp"
             android:textColor="@color/colorSecondaryText"
             android:text="5 Mi SW"/>
 
+        <ImageView
+            android:id="@+id/time_image_view"
+            android:layout_width="16sp"
+            android:layout_height="16sp"
+            android:src="@drawable/ic_device_access_time_gray"
+            android:color="@color/colorAccent"
+            android:layout_below="@id/list_item_location"/>
+
         <TextView
             android:id="@+id/list_item_time_since"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/time_image_view"
+            android:layout_marginLeft="8sp"
             android:layout_below="@id/list_item_location"
             android:textSize="14sp"
             android:textColor="@color/colorSecondaryText"
-            android:text="2 min ago"/>
+            android:text="2 min "/>
+
+        <ImageView
+            android:id="@+id/distance_image_view"
+            android:layout_width="16sp"
+            android:layout_height="16sp"
+            android:src="@drawable/ic_maps_navigation_gray"
+            android:color="@color/colorAccent"
+            android:layout_marginLeft="8dp"
+            android:layout_toRightOf="@id/list_item_time_since"
+            android:layout_below="@id/list_item_location"/>
+
+        <TextView
+            android:id="@+id/list_item_distance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/list_item_location"
+            android:layout_marginLeft="8sp"
+            android:layout_toRightOf="@id/distance_image_view"
+            android:text="235.4 km "
+            android:textSize="14sp"
+            android:textColor="@color/colorSecondaryText"/>
     </RelativeLayout>
 
 </RelativeLayout>

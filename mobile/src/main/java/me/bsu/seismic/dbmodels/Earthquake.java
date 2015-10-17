@@ -1,6 +1,7 @@
 package me.bsu.seismic.dbmodels;
 
 import android.database.Cursor;
+import android.util.Log;
 
 import com.activeandroid.Cache;
 import com.activeandroid.Model;
@@ -12,6 +13,8 @@ import java.util.List;
 
 @Table(name = "Earthquakes")
 public class Earthquake extends Model {
+    public static final String TAG = "EARTHQUAKE_MODEL";
+
     @Column(name = "eventid", unique = true, onUniqueConflict = Column.ConflictAction.REPLACE)
     public String eventID;
 
@@ -37,7 +40,9 @@ public class Earthquake extends Model {
     public float lng;
 
     public List<ImageUrl> imageUrls() {
-        return getMany(ImageUrl.class, "Earthquake");
+        List<ImageUrl> earthquakes = getMany(ImageUrl.class, "Earthquake");
+        Log.d(TAG, this.place + " has " + earthquakes.size() + " images");
+        return earthquakes;
     }
 
     public Earthquake() {

@@ -1,17 +1,59 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:tools="http://schemas.android.com/tools"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:context="me.bsu.seismic.MainActivity"
-                tools:deviceIds="wear_round">
+<android.support.wearable.view.BoxInsetLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorPrimary"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:padding="0dp">
 
-    <TextView
-        android:id="@+id/text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:text="@string/hello_round"/>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="0dp"
+        app:layout_box="all">
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/title"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="30dp"
+            android:text="M1.75 11km ENE of San Ramon, California"
+            android:textSize="22sp"
+            android:textColor="@color/white" />
+
+        <at.markushi.ui.CircleButton
+            android:id="@+id/map_button"
+            android:background="@null"
+            android:layout_gravity="bottom|left"
+            android:layout_height="75dp"
+            android:layout_width="75dp"
+            android:src="@drawable/ic_place_white_48dp"
+            android:clickable="true"
+            app:cb_color="@color/colorAccent"
+            app:cb_pressedRingWidth="8dp" />
+
+        <at.markushi.ui.CircleButton
+            android:id="@+id/photo_button"
+            android:background="@null"
+            android:layout_gravity="bottom|right"
+            android:layout_height="75dp"
+            android:layout_width="75dp"
+            android:src="@drawable/ic_photo_white_48dp"
+            android:clickable="true"
+            app:cb_color="@color/green"
+            app:cb_pressedRingWidth="8dip" />
+
+        <TextView
+            android:gravity="center"
+            android:layout_gravity="top|center"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="20dp"
+            android:text="@string/shake_text"
+            android:textSize="10sp"
+            android:textColor="@color/white" />
+
+    </FrameLayout>
+</android.support.wearable.view.BoxInsetLayout>

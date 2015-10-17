@@ -2,6 +2,7 @@ package me.bsu.seismic;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -10,11 +11,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.squareup.okhttp.ResponseBody;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import me.bsu.seismic.api.InstagramClient;
 import me.bsu.seismic.models.instagram.Datum;
@@ -29,9 +34,11 @@ public class EarthquakeProfileImageFragment extends Fragment {
 
     public static final String TAG = "PROFILE_IMAGE_FRAG";
 
+    private static final String ID = "ID";
     private static final String LAT = "LAT";
     private static final String LNG = "LNG";
 
+    private String id;
     private float lat, lng;
     RecyclerView mRecyclerView;
     private EarthquakeProfileImageAdapter mAdapter;
@@ -39,9 +46,10 @@ public class EarthquakeProfileImageFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public static EarthquakeProfileImageFragment newInstance(float lat, float lng) {
+    public static EarthquakeProfileImageFragment newInstance(String id, float lat, float lng) {
         EarthquakeProfileImageFragment fragment = new EarthquakeProfileImageFragment();
         Bundle args = new Bundle();
+        args.putString(ID, id);
         args.putFloat(LAT, lat);
         args.putFloat(LNG, lng);
         fragment.setArguments(args);
@@ -56,6 +64,7 @@ public class EarthquakeProfileImageFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
+            id = getArguments().getString(ID);
             lat = getArguments().getFloat(LAT);
             lng = getArguments().getFloat(LNG);
         }
@@ -67,8 +76,9 @@ public class EarthquakeProfileImageFragment extends Fragment {
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_earthquake_profile_image, container, false);
         mRecyclerView = (RecyclerView) v.findViewById(R.id.listview_earthquake_profile_images);
-        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
+        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 3);
         mRecyclerView.setLayoutManager(layoutManager);
+
         return v;
     }
 
@@ -120,7 +130,10 @@ public class EarthquakeProfileImageFragment extends Fragment {
 //                consumeUSGSApiData(response.body());
                 if (response.isSuccess()) {
                     InstagramResponse e = response.body();
-                    urls = getUrls(e);
+                    urls = Utils.getUrls(e);
+                    if (urls.size() == 0) {
+                        Toast.makeText(getActivity(), "No images found", Toast.LENGTH_LONG).show();
+                    }
                     showImages();
                     Log.d(TAG, "success!!");
                 } else {
@@ -138,21 +151,6 @@ public class EarthquakeProfileImageFragment extends Fragment {
                 Log.d(TAG, "stack " + t.fillInStackTrace().toString());
             }
         });
-    }
-
-    private ArrayList<String> getUrls(InstagramResponse r) {
-        ArrayList<String> urls = new ArrayList<>();
-        List<Datum> data = r.getData();
-        Log.d(TAG, "# Images: " + data.size());
-        for (Datum datum : data) {
-            Log.d(TAG, datum.getCreatedTime());
-            if (datum.getImages() != null && datum.getImages().getStandardResolution() != null) {
-                String url = datum.getImages().getStandardResolution().getUrl();
-                Log.d(TAG, "Image url: " + url);
-                urls.add(url);
-            }
-        }
-        return urls;
     }
 
     public void showImages() {

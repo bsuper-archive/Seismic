@@ -4,74 +4,80 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
     android:orientation="vertical"
     android:background="@color/white"
     tools:context="me.bsu.seismic.EarthquakeProfileFragment">
 
-    <RelativeLayout
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:weightSum="1">
+
         <TextView
             android:id="@+id/profile_name"
-            android:layout_width="match_parent"
+            android:layout_weight=".9"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:textSize="22sp"
             android:textStyle="bold"
-            android:textAlignment="center"
             android:text="11mi NW of San Francisco, California"/>
 
-        <LinearLayout
-            android:id="@+id/profile_type_magnitude_linear_layout"
-            android:layout_marginTop="8dp"
-            android:layout_below="@id/profile_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:weightSum="1">
+        <ImageView
+            android:id="@+id/show_map_image"
+            android:layout_weight=".1"
+            android:layout_width="0dp"
+            android:layout_height="56sp"
+            android:src="@drawable/ic_maps_place_gray"/>
 
-            <TextView
-                android:id="@+id/profile_type"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight=".5"
-                android:textSize="18sp"
-                android:textAlignment="center"
-                android:text="Earthquake"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1">
+        <TextView
+            android:id="@+id/profile_type"
+            android:layout_weight=".4"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="18sp"
+            android:textAlignment="center"
+            android:text="Quarry Blast"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight=".5"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="18sp"
+                android:layout_height="18sp"
+                android:src="@drawable/ic_seismic"
+                android:layout_marginRight="8sp"/>
 
             <TextView
                 android:id="@+id/profile_magnitude"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight=".5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:textAlignment="center"
                 android:text="5.5"/>
-
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/profile_time"
-            android:layout_marginTop="8dp"
-            android:layout_below="@id/profile_type_magnitude_linear_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textSize="18sp"
-            android:text="2015-10-16 14:13:15 PST"/>
+    </LinearLayout>
 
-        <TextView
-            android:id="@+id/profile_photos_header"
-            android:layout_marginTop="16dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/profile_time"
-            android:textSize="12sp"
-            android:text="PHOTOS"/>
-
-
-    </RelativeLayout>
+    <TextView
+        android:id="@+id/profile_time"
+        android:layout_marginTop="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:textSize="18sp"
+        android:text="2015-10-16 14:13:15 PST"/>
 
     <FrameLayout
         android:layout_marginTop="8dp"

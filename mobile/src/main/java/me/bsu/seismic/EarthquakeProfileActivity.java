@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.apache.commons.lang3.text.WordUtils;
@@ -17,6 +19,8 @@ public class EarthquakeProfileActivity extends Activity {
     private float lat, lng;
     private double mag;
 
+    public static final String ID = "EARTHQUAKE_ID";
+
     private TextView nameTV, typeTV, magTV, timeTV, moreInfoTV;
 
     @Override
@@ -29,7 +33,7 @@ public class EarthquakeProfileActivity extends Activity {
 
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
-                    .add(R.id.image_fragment_container, EarthquakeProfileImageFragment.newInstance(lat, lng))
+                    .add(R.id.image_fragment_container, EarthquakeProfileImageFragment.newInstance(id, lat, lng))
                     .commit();
         }
     }
@@ -53,13 +57,21 @@ public class EarthquakeProfileActivity extends Activity {
         typeTV = (TextView) findViewById(R.id.profile_type);
         magTV = (TextView) findViewById(R.id.profile_magnitude);
         timeTV = (TextView) findViewById(R.id.profile_time);
-        moreInfoTV = (TextView) findViewById(R.id.profile_more_info);
 
         nameTV.setText(WordUtils.capitalizeFully(name));
         typeTV.setText(WordUtils.capitalizeFully(type));
         magTV.setText(String.valueOf(mag));
         magTV.setTextColor(ContextCompat.getColor(this, Utils.getEarthquakeColor(mag)));
         timeTV.setText(time);
+
+        ((ImageView) findViewById(R.id.show_map_image)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(EarthquakeProfileActivity.this, MapsActivity.class);
+                i.putExtra(ID, id);
+                startActivity(i);
+            }
+        });
 
     }
 

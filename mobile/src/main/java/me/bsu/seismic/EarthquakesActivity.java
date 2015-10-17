@@ -3,7 +3,9 @@ package me.bsu.seismic;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -17,9 +19,12 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.squareup.okhttp.ResponseBody;
+
+import java.util.List;
 
 import me.bsu.seismic.api.USGSClient;
 import me.bsu.seismic.dbmodels.Earthquake;
@@ -88,6 +93,32 @@ public class EarthquakesActivity extends FragmentActivity implements OnMapReadyC
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        final Handler handler = new Handler();
+        Runnable runnable = new Runnable() {
+
+            @Override
+            public void run() {
+                try{
+                    //do your code here
+                    updateListFragmentAndMarkers();
+                    //also call the same runnable
+                    handler.postDelayed(this, 2 * 60 * 1000);
+                }
+                catch (Exception e) {
+                    // TODO: handle exception
+                }
+                finally{
+                    //also call the same runnable
+                    handler.postDelayed(this, 2 * 60 * 1000);
+                }
+            }
+        };
+        handler.postDelayed(runnable, 2 * 60 * 1000);
+    }
+
+    @Override
     protected void onStop() {
         mGoogleApiClient.disconnect();
         super.onStop();
@@ -133,58 +164,29 @@ public class EarthquakesActivity extends FragmentActivity implements OnMapReadyC
         Utils.saveToDB(earthquakes);
         Utils.deleteOldFromDB(Utils.NUMBER_EARTHQUAKES_TO_KEEP);
         Log.d(TAG, "# Earthquakes in DB: " + new Select().from(Earthquake.class).count());
+        updateListFragmentAndMarkers();
+    }
+
+    private void updateListFragmentAndMarkers() {
         EarthquakesListFragment listFragment = (EarthquakesListFragment) getFragmentManager().findFragmentById(R.id.list_container);
         if (listFragment != null) {
             Log.d(TAG, "Not null");
-            listFragment.updateEarthquakes();
+            listFragment.updateEarthquakesWithUserLocation(mLastLocation);
         }
-//        } else {
-//            EarthquakesListFragment newFragment = new EarthquakesListFragment();
-//
-//            FragmentTransaction transaction = getFragmentManager().beginTransaction();
-//
-//            // Replace whatever is in the fragment_container view with this fragment,
-//            // and add the transaction to the back stack so the user can navigate back
-//            transaction.replace(R.id.list_container, newFragment);
-//            transaction.addToBackStack(null);
-//
-//            // Commit the transaction
-//            transaction.commitAllowingStateLoss();
-//            newFragment.updateEarthquakes();
-//        }
-        for (Feature f : earthquakes.getFeatures()) {
-            LatLng location = new LatLng(f.getGeometry().getCoordinates().get(1), f.getGeometry().getCoordinates().get(0));
-            mMap.addMarker(new MarkerOptions().position(location).title(f.getProperties().getTitle()));
+        updateMarkers();
+    }
+
+    private void updateMarkers() {
+        mMap.clear();
+        List<Earthquake> earthquakes = new Select().from(Earthquake.class).execute();
+        for (Earthquake e : earthquakes) {
+            LatLng location = new LatLng(e.lat, e.lng);
+            mMap.addCircle(new CircleOptions()
+                                .center(location)
+                                .radius(Math.max(0.1, e.magnitude) * 10000)
+                                .strokeColor(ContextCompat.getColor(this, Utils.getEarthquakeColor(e.magnitude)))
+                                        .fillColor(ContextCompat.getColor(this, Utils.getEarthquakeColor(e.magnitude))));
         }
-    }
-
-    private void showMapOnly() {
-        View v = findViewById(R.id.map_container);
-        LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT, 1.0f);
-        v.setLayoutParams(param);
-    }
-
-    private void showListOnly() {
-        View v = findViewById(R.id.list_container);
-        LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT, 1.0f);
-        v.setLayoutParams(param);
-    }
-
-    private void showBoth() {
-        View listContainer = findViewById(R.id.list_container);
-        LinearLayout.LayoutParams param = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                0, 0.5f);
-        listContainer.setLayoutParams(param);
-        View mapContainer = findViewById(R.id.map_container);
-        LinearLayout.LayoutParams param2 = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                0, 0.5f);
-        mapContainer.setLayoutParams(param2);
     }
 
     /**
@@ -208,9 +210,17 @@ public class EarthquakesActivity extends FragmentActivity implements OnMapReadyC
         mLastLocation = LocationServices.FusedLocationApi.getLastLocation(
                 mGoogleApiClient);
         if (mLastLocation != null && mMap != null) {
-            Log.d(TAG, "got last location");
+            Log.d(TAG, "got last location ugh");
             LatLng currentLocation = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
             mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
+        }
+        Log.d(TAG, "should go here");
+        EarthquakesListFragment listFragment = (EarthquakesListFragment) getFragmentManager().findFragmentById(R.id.list_container);
+        if (listFragment != null) {
+            Log.d(TAG, "Not null");
+            listFragment.updateEarthquakesWithUserLocation(mLastLocation);
+        } else {
+            Log.d(TAG, "why this null");
         }
     }
 
@@ -220,23 +230,6 @@ public class EarthquakesActivity extends FragmentActivity implements OnMapReadyC
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
         Log.d(TAG, connectionResult.getErrorMessage());
-    }
-
-    public void getEarthquakeProfile(int item) {
-        Feature event = mEarthquakes.getFeatures().get(item);
-        Intent intent = new Intent(this, EarthquakeProfileActivity.class);
-        intent.putExtra(EVENT_ID, event.getId());
-        intent.putExtra(EVENT_TITLE, event.getProperties().getTitle());
-        intent.putExtra(EVENT_TYPE, event.getProperties().getType());
-        intent.putExtra(EVENT_MAG, event.getProperties().getMag());
-        intent.putExtra(EVENT_TIME, Utils.convertUnixTimestampToLocalTimestampString(event.getProperties().getTime()));
-        intent.putExtra(EVENT_MORE_INFO, event.getProperties().getUrl());
-        intent.putExtra(EVENT_LAT, event.getGeometry().getCoordinates().get(1));
-        intent.putExtra(EVENT_LNG, event.getGeometry().getCoordinates().get(0));
-
-        Log.d(TAG, "Lat: " + event.getGeometry().getCoordinates().get(1));
-        Log.d(TAG, "Lng: " + event.getGeometry().getCoordinates().get(0));
-        startActivity(intent);
     }
 
     public void getEarthquakeProfileUsingDB(int index) {
